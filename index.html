@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retiro Trekking y Comunidad · Cadaqués 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --sky:       #4a90b8;
+      --sky-deep:  #1a3a5c;
+      --sky-mid:   #2d6a8f;
+      --sand:      #e8d5b7;
+      --sand-lt:   #f5ede0;
+      --sand-dk:   #c9a97a;
+      --white:     #ffffff;
+      --off-white: #f8f6f2;
+      --text:      #2c2c2c;
+      --text-lt:   #6b6b6b;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+
+    /* ── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.4rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: background 0.35s, box-shadow 0.35s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 24px rgba(0,0,0,0.08);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; letter-spacing: 0.06em;
+      color: white; text-decoration: none;
+      transition: color 0.3s;
+    }
+    nav.scrolled .nav-logo { color: var(--sky-deep); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-weight: 500; color: rgba(255,255,255,0.85);
+      text-decoration: none; transition: color 0.2s;
+    }
+    nav.scrolled .nav-links a { color: var(--text); }
+    .nav-links a:hover { color: var(--sand); }
+    nav.scrolled .nav-links a:hover { color: var(--sky); }
+
+    /* ── HERO ─────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden;
+      background:
+        linear-gradient(to bottom,
+          rgba(0,0,0,0.38) 0%,
+          rgba(0,0,0,0.1) 50%,
+          rgba(0,0,0,0.58) 100%),
+        url('panoramica.jpeg') center center / cover no-repeat;
+    }
+
+    /* fade to white at bottom */
+    .hero::before {
+      content: ''; position: absolute;
+      bottom: 0; left: 0; right: 0; height: 160px;
+      background: linear-gradient(to top, var(--white), transparent);
+      pointer-events: none;
+    }
+
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 2rem; max-width: 780px;
+    }
+    .hero-pill {
+      display: inline-block;
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.82); font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.35); border-radius: 20px;
+      padding: 0.4rem 1.3rem; margin-bottom: 1.6rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+      color: white; line-height: 1.12;
+      font-weight: 600; margin-bottom: 1rem;
+    }
+    .hero-title em { font-style: italic; color: #cde8f4; }
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+      color: rgba(255,255,255,0.82); margin-bottom: 2rem;
+      letter-spacing: 0.02em;
+    }
+    .hero-date-badge {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 40px; padding: 0.65rem 1.7rem;
+      color: white; font-size: 0.9rem; letter-spacing: 0.04em;
+      margin-bottom: 2.5rem;
+    }
+    .hero-date-badge svg { width: 17px; height: 17px; opacity: 0.75; flex-shrink: 0; }
+    .hero-cta {
+      display: inline-block;
+      background: white; color: var(--sky-deep);
+      padding: 0.9rem 2.6rem; border-radius: 40px;
+      text-decoration: none; font-size: 0.88rem;
+      font-weight: 600; letter-spacing: 0.06em;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.22); }
+
+    /* ── SHARED ─────────────────────────────────────────── */
+    section { padding: 6rem 2rem; }
+    .container { max-width: 960px; margin: 0 auto; }
+    .sec-label {
+      font-size: 0.68rem; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--sky); font-weight: 600; margin-bottom: 0.6rem;
+    }
+    .sec-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      color: var(--text); line-height: 1.2; margin-bottom: 1.5rem;
+    }
+
+    /* ── SOBRE ─────────────────────────────────────────── */
+    .about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: start; margin-bottom: 4rem;
+    }
+    .about-text p {
+      color: var(--text-lt); line-height: 1.85;
+      font-size: 1.02rem; margin-bottom: 1.2rem;
+    }
+    .about-card {
+      background: linear-gradient(140deg, #deeef8 0%, #d8ebd4 60%, #e8e0d0 100%);
+      border-radius: 24px; padding: 2.8rem 2rem; text-align: center;
+    }
+    .about-icons {
+      display: flex; justify-content: center; gap: 1.8rem; flex-wrap: wrap;
+      margin-bottom: 1.8rem;
+    }
+    .about-icon-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .icon-circle {
+      width: 54px; height: 54px; border-radius: 50%; background: white;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+    }
+    .icon-circle svg { width: 26px; height: 26px; }
+    .about-icon-item span { font-size: 0.72rem; color: var(--text-lt); font-weight: 500; }
+    .about-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic; font-size: 1.08rem;
+      color: var(--text); line-height: 1.6;
+    }
+    .about-quote-sub { font-size: 0.78rem; color: var(--text-lt); margin-top: 0.5rem; }
+
+    /* org cards inside sobre */
+    .org-cards {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin-top: 0;
+    }
+    .org-card {
+      background: var(--off-white); border-radius: 18px;
+      padding: 2.2rem 1.8rem; text-align: center;
+    }
+    .org-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem; color: white; font-weight: 600;
+    }
+    .org-card .org-avatar { background: #b0b5bc; color: #f0f0f0; }
+    .org-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; margin-bottom: 0.2rem;
+    }
+    .org-role { font-size: 0.8rem; color: var(--text-lt); margin-bottom: 0.9rem; }
+    .org-desc { font-size: 0.86rem; color: var(--text-lt); line-height: 1.6; margin-bottom: 1rem; }
+    .org-ig {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-size: 0.83rem; color: var(--sky); font-weight: 500;
+      text-decoration: none; transition: color 0.2s;
+    }
+    .org-ig:hover { color: #c13584; }
+    .org-ig svg { width: 15px; height: 15px; }
+
+    /* ── FOTOS ENTORNO ──────────────────────────────────────── */
+    .entorno-fotos {
+      display: grid;
+      grid-template-rows: 260px 155px;
+      gap: 0.75rem;
+    }
+    .entorno-fotos img {
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 18px;
+      display: block;
+    }
+
+    /* ── ALOJAMIENTO ─────────────────────────────────────────── */
+    .alojamiento { background: var(--sand-lt); }
+    .alojamiento-intro {
+      max-width: 560px; margin-bottom: 2.5rem;
+    }
+    .alojamiento-intro p { color: var(--text-lt); line-height: 1.8; font-size: 1rem; }
+    .alojamiento-galeria {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr;
+      grid-template-rows: 205px 205px;
+      gap: 0.85rem;
+    }
+    .alojamiento-galeria img {
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 18px;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .alojamiento-galeria img:hover { transform: scale(1.02); }
+    .alojamiento-galeria img:first-child { grid-row: 1 / 3; }
+
+    @media (max-width: 700px) {
+      .alojamiento-galeria {
+        grid-template-columns: 1fr;
+        grid-template-rows: 230px 180px 180px;
+      }
+      .alojamiento-galeria img:first-child { grid-row: auto; }
+      .entorno-fotos { grid-template-rows: 210px 130px; }
+    }
+
+    /* ── PROGRAMA ─────────────────────────────────────────── */
+    .program { background: var(--off-white); }
+    .program-days { display: flex; flex-direction: column; gap: 2rem; margin-top: 3rem; }
+    .day-card { border-radius: 22px; overflow: hidden; box-shadow: 0 4px 32px rgba(0,0,0,0.07); }
+
+    .day-header {
+      padding: 1.6rem 2rem;
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .day-card:nth-child(1) .day-header { background: linear-gradient(135deg, #1a3a5c, #2d6a8f); }
+    .day-card:nth-child(2) .day-header { background: linear-gradient(135deg, #2d6a8f, #5aaacb); }
+
+    .day-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; color: rgba(255,255,255,0.22);
+      font-weight: 700; line-height: 1; flex-shrink: 0;
+    }
+    .day-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; color: white; font-weight: 500;
+    }
+    .day-info p { font-size: 0.76rem; color: rgba(255,255,255,0.65); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.15rem; }
+
+    .day-body { background: white; padding: 2rem 2rem 2.2rem; }
+    .day-note {
+      font-size: 0.82rem; color: var(--text-lt); font-style: italic;
+      margin-bottom: 1.5rem; padding-bottom: 1rem;
+      border-bottom: 1px solid #f0ece6;
+    }
+    .activities { display: flex; flex-direction: column; gap: 1.1rem; }
+    .activity { display: flex; align-items: flex-start; gap: 1rem; }
+    .act-icon {
+      width: 38px; height: 38px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .act-icon svg { width: 19px; height: 19px; }
+    .act-body { padding-top: 0.25rem; }
+    .act-body h4 { font-size: 0.93rem; font-weight: 600; margin-bottom: 0.18rem; }
+    .act-body p { font-size: 0.83rem; color: var(--text-lt); line-height: 1.55; }
+
+    /* ── INFO ─────────────────────────────────────────── */
+    .info {
+      background: linear-gradient(135deg, var(--sky-deep) 0%, #245b82 60%, #2d6a8f 100%);
+    }
+    .info .sec-label { color: rgba(255,255,255,0.55); }
+    .info .sec-title { color: white; }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem; margin-top: 3rem;
+    }
+    .info-card {
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 18px; padding: 1.8rem 1.4rem;
+      text-align: center; backdrop-filter: blur(8px);
+    }
+    .info-card svg { width: 30px; height: 30px; margin-bottom: 0.9rem; opacity: 0.75; }
+    .info-card-lbl { font-size: 0.67rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.4rem; }
+    .info-card-val { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: white; }
+    .info-card-sub { font-size: 0.78rem; color: rgba(255,255,255,0.55); margin-top: 0.25rem; }
+
+    .price-note {
+      margin-top: 2.5rem;
+      padding: 1.4rem 1.8rem;
+      background: rgba(255,255,255,0.06);
+      border-left: 3px solid rgba(255,255,255,0.35);
+      border-radius: 0 10px 10px 0;
+      font-size: 0.88rem; color: rgba(255,255,255,0.75); line-height: 1.7;
+    }
+    .price-note strong { color: white; }
+
+    /* ── CONTACTO ─────────────────────────────────────────── */
+    .contact { background: var(--sand-lt); text-align: center; }
+    .contact-desc {
+      color: var(--text-lt); font-size: 1rem;
+      line-height: 1.8; margin-bottom: 2.8rem;
+    }
+    .contact-links { display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap; }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      padding: 1rem 2rem; border-radius: 50px;
+      text-decoration: none; font-weight: 600; font-size: 0.92rem;
+      transition: transform 0.2s, box-shadow 0.2s; color: white;
+    }
+    .contact-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+    .btn-margarita { background: linear-gradient(135deg, #833ab4, #fd1d1d 60%, #fcb045); }
+    .btn-ibonte    { background: linear-gradient(135deg, #405de6, #833ab4); }
+    .contact-btn svg { width: 19px; height: 19px; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--sky-deep); color: rgba(255,255,255,0.45);
+      text-align: center; padding: 2.2rem 1rem; font-size: 0.8rem; line-height: 1.9;
+    }
+    footer strong { color: rgba(255,255,255,0.8); }
+
+    /* ── FADE IN ─────────────────────────────────────────── */
+    .fade {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    .fade.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 800px) {
+      nav { padding: 1.1rem 1.4rem; }
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .org-cards  { grid-template-columns: 1fr; }
+      .info-grid  { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      section { padding: 4rem 1.2rem; }
+      .info-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Retiro · Cadaqués</a>
+  <ul class="nav-links">
+    <li><a href="#sobre">El retiro</a></li>
+    <li><a href="#programa">Programa</a></li>
+    <li><a href="#info">Info práctica</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-pill">Cap de Creus · Cadaqués</div>
+    <h1 class="hero-title">Retiro <em>Trekking</em><br>y Comunidad</h1>
+    <p class="hero-tagline">"Caminar, conectar, crecer y disfrutar"</p>
+    <div class="hero-date-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
+        <line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/>
+      </svg>
+      5, 6 y 7 de junio de 2026
+    </div>
+    <br>
+    <a href="#contacto" class="hero-cta">Reserva tu plaza</a>
+  </div>
+</section>
+
+<!-- SOBRE EL RETIRO -->
+<section class="about" id="sobre">
+  <div class="container">
+
+    <div class="about-grid fade">
+      <div class="about-text">
+        <p class="sec-label">Sobre el retiro</p>
+        <h2 class="sec-title">Salir del piloto<br><em style="font-style:italic;">automático</em></h2>
+        <p>Un fin de semana para desconectar del ruido cotidiano y reconectar con lo esencial: contigo mismo, con la naturaleza y con otras personas —sin prisas y sin expectativas.</p>
+        <p>El entorno privilegiado del Cap de Creus, declarado Parque Natural, es el marco ideal para combinar el movimiento en la naturaleza con la introspección y el encuentro genuino.</p>
+        <p>Nos alojamos en <strong>Can Duran</strong>, en el corazón de Cadaqués, un espacio íntimo y acogedor para un grupo reducido de entre 8 y 11 personas.</p>
+      </div>
+      <div class="entorno-fotos">
+        <img src="costa.jpeg" alt="Costa del Cap de Creus">
+        <img src="barca.jpeg" alt="Barca tradicional en Cadaqués">
+      </div>
+    </div>
+
+    <!-- ORGANIZADORES -->
+    <div class="fade">
+      <p class="sec-label">Quiénes somos</p>
+      <h2 class="sec-title" style="margin-bottom:2rem;">Los organizadores</h2>
+      <div class="org-cards">
+        <div class="org-card">
+          <div class="org-avatar">M</div>
+          <h3 class="org-name">Margarita Margenat</h3>
+          <p class="org-role">Psicóloga</p>
+          <p class="org-desc">Guiará los espacios de introspección y el compartir grupal, creando un entorno de apertura y confianza genuinas.</p>
+          <a href="https://instagram.com/margaritapsicologia" target="_blank" rel="noopener" class="org-ig">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            @margaritapsicologia
+          </a>
+        </div>
+        <div class="org-card">
+          <div class="org-avatar">I</div>
+          <h3 class="org-name">Guías Ibonte</h3>
+          <p class="org-role">Guías de montaña</p>
+          <p class="org-desc">Guiarán los trekking por el Parque Natural del Cap de Creus con el conocimiento y la seguridad de un guía profesional.</p>
+          <a href="https://instagram.com/guiasibonte" target="_blank" rel="noopener" class="org-ig">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            @guiasibonte
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ALOJAMIENTO -->
+<section class="alojamiento" id="alojamiento">
+  <div class="container fade">
+    <p class="sec-label">El espacio</p>
+    <h2 class="sec-title">Can Duran, Cadaqués</h2>
+    <div class="alojamiento-intro">
+      <p>Una casa acogedora en el corazón de Cadaqués para alojarnos durante el fin de semana. Comedor compartido, terraza con vistas y habitaciones íntimas para un grupo reducido.</p>
+    </div>
+    <div class="alojamiento-galeria">
+      <img src="menjador.jpeg" alt="Comedor de Can Duran">
+      <img src="terrassa.jpeg" alt="Terraza de Can Duran">
+      <img src="interior.jpeg" alt="Interior de Can Duran">
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMA -->
+<section class="program" id="programa">
+  <div class="container fade">
+    <p class="sec-label">El fin de semana</p>
+    <h2 class="sec-title">Programa</h2>
+    <div class="program-days">
+
+      <!-- Viernes -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num">01</div>
+          <div class="day-info">
+            <h3>Viernes 5 de junio</h3>
+            <p>Llegada y bienvenida</p>
+          </div>
+        </div>
+        <div class="day-body">
+          <div class="activities">
+            <div class="activity">
+              <div class="act-icon" style="background:#e8f4fb;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4a90b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 12l9-9 9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Llegada por la tarde</h4>
+                <p>Instalación en Can Duran, Cadaqués. Primer contacto con el espacio y con el grupo.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="act-icon" style="background:#e8f4e8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6bab6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+                  <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Dinámica de bienvenida</h4>
+                <p>Un espacio para conocernos, presentarnos y crear el marco de confianza del grupo.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="act-icon" style="background:#fdf3e8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#c9a97a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Cena compartida</h4>
+                <p>Primera cena juntos para cerrar el día y abrir el fin de semana con buen sabor.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sábado y Domingo -->
+      <div class="day-card">
+        <div class="day-header">
+          <div class="day-num">02<span style="font-size:1.2rem;"> &</span> 03</div>
+          <div class="day-info">
+            <h3>Sábado 6 y Domingo 7 de junio</h3>
+            <p>Movimiento · Naturaleza · Introspección</p>
+          </div>
+        </div>
+        <div class="day-body">
+          <p class="day-note">Ambos días siguen el mismo ritmo: un ciclo completo de movimiento, silencio y encuentro.</p>
+          <div class="activities">
+            <div class="activity">
+              <div class="act-icon" style="background:#fdf6e8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e8a84a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="4"/>
+                  <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Meditación guiada — mañana</h4>
+                <p>Comenzamos el día en silencio y presencia para preparar cuerpo y mente antes de salir.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="act-icon" style="background:#e8f4fb;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#4a90b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 20l5.5-9 3 4.5 3.5-7L21 20H3z"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Trekking por Cap de Creus</h4>
+                <p>Ruta guiada por el Parque Natural con guía de montaña. Con opción de baño en el mar.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="act-icon" style="background:#e8f4e8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6bab6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                  <line x1="9" y1="9" x2="9.01" y2="9"/>
+                  <line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Introspección y compartir grupal</h4>
+                <p>Espacio facilitado por la psicóloga para la reflexión personal y el encuentro genuino con el grupo.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="act-icon" style="background:#f0eaf8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#9b6bab" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Tiempo libre en el pueblo</h4>
+                <p>Pasear por Cadaqués, descansar, explorar, tomar algo. Sin agenda.</p>
+              </div>
+            </div>
+            <div class="activity">
+              <div class="act-icon" style="background:#fdf3e8;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#e8704a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3c-4.97 0-9 3.185-9 7.115 0 2.346 1.381 4.42 3.5 5.77L6 21l3.5-2c.806.13 1.644.2 2.5.2s1.694-.07 2.5-.2L18 21l-.5-5.115C19.619 14.535 21 12.46 21 10.115 21 6.185 16.97 3 12 3z"/>
+                </svg>
+              </div>
+              <div class="act-body">
+                <h4>Meditación al atardecer frente al mar</h4>
+                <p>Cerramos cada día con presencia plena ante el horizonte del Mediterráneo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- INFO PRÁCTICA -->
+<section class="info" id="info">
+  <div class="container fade">
+    <p class="sec-label">Info práctica</p>
+    <h2 class="sec-title">Todo lo que necesitas saber</h2>
+    <div class="info-grid">
+
+      <div class="info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+        </svg>
+        <p class="info-card-lbl">Lugar</p>
+        <p class="info-card-val">Can Duran</p>
+        <p class="info-card-sub">Cadaqués · Cap de Creus</p>
+      </div>
+
+      <div class="info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/>
+          <line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/>
+        </svg>
+        <p class="info-card-lbl">Fechas</p>
+        <p class="info-card-val">5, 6 y 7 junio</p>
+        <p class="info-card-sub">Viernes tarde — Domingo 2026</p>
+      </div>
+
+      <div class="info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        <p class="info-card-lbl">Grupo</p>
+        <p class="info-card-val">8–11 personas</p>
+        <p class="info-card-sub">Reducido e íntimo</p>
+      </div>
+
+      <div class="info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+        </svg>
+        <p class="info-card-lbl">Precio</p>
+        <p class="info-card-val">290 €</p>
+        <p class="info-card-sub">Habitación compartida (4 pax)</p>
+      </div>
+
+      <div class="info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        <p class="info-card-lbl">Transporte</p>
+        <p class="info-card-val">Vehículo propio</p>
+        <p class="info-card-sub">Se coordinan entre participantes</p>
+      </div>
+
+      <div class="info-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+        </svg>
+        <p class="info-card-lbl">Hab. individual</p>
+        <p class="info-card-val">Precio a consultar</p>
+        <p class="info-card-sub">Escríbenos por DM</p>
+      </div>
+
+    </div>
+    <div class="price-note">
+      <strong>¿Qué incluye el precio?</strong> Alojamiento en habitación compartida de 4 personas, el programa completo de actividades y la guía profesional durante los trekking. El transporte no está incluido y se organiza entre los participantes. Para habitación individual, consulta el precio por DM en Instagram.
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="contact" id="contacto">
+  <div class="container fade">
+    <p class="sec-label">Únete</p>
+    <h2 class="sec-title">¿Te vienes?</h2>
+    <p class="contact-desc">
+      Las plazas son limitadas — entre 8 y 11 personas.<br>
+      Para reservar la tuya o resolver cualquier duda,<br>
+      escríbenos por DM en Instagram.
+    </p>
+    <div class="contact-links">
+      <a href="https://instagram.com/margaritapsicologia" target="_blank" rel="noopener" class="contact-btn btn-margarita">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+        @margaritapsicologia
+      </a>
+      <a href="https://instagram.com/guiasibonte" target="_blank" rel="noopener" class="contact-btn btn-ibonte">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+        </svg>
+        @guiasibonte
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Retiro Trekking y Comunidad</strong> · Can Duran, Cadaqués · 5–7 de junio de 2026</p>
+  <p>Organizado por <strong>Margarita Margenat</strong> (@margaritapsicologia) y <strong>Guías Ibonte</strong> (@guiasibonte)</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // Fade-in on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
