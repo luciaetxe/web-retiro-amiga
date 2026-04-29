@@ -183,7 +183,8 @@
       font-family: 'Playfair Display', serif;
       font-size: 1.7rem; color: white; font-weight: 600;
     }
-    .org-card .org-avatar { background: #b0b5bc; color: #f0f0f0; }
+    .org-card .org-avatar { background: #b0b5bc; color: #f0f0f0; overflow: hidden; }
+    .org-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
     .org-name {
       font-family: 'Playfair Display', serif;
       font-size: 1.2rem; margin-bottom: 0.2rem;
@@ -200,13 +201,13 @@
 
     /* ── FOTOS ENTORNO ──────────────────────────────────────── */
     .entorno-fotos {
-      display: grid;
-      grid-template-rows: 260px 155px;
+      display: flex;
+      flex-direction: column;
       gap: 0.75rem;
     }
     .entorno-fotos img {
-      width: 100%; height: 100%;
-      object-fit: cover; border-radius: 18px;
+      width: 100%; height: auto;
+      border-radius: 18px;
       display: block;
     }
 
@@ -217,30 +218,23 @@
     }
     .alojamiento-intro p { color: var(--text-lt); line-height: 1.8; font-size: 1rem; }
     .alojamiento-galeria {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
       border-radius: 18px;
       overflow: hidden;
     }
-    .galeria-top {
-      width: 100%; height: 250px;
+    .alojamiento-galeria img {
+      width: 100%; height: 220px;
       object-fit: cover; display: block;
       transition: transform 0.4s ease;
     }
-    .galeria-top:hover { transform: scale(1.02); }
-    .galeria-bottom {
-      display: flex;
-      gap: 2px;
-      margin-top: 2px;
-      background: var(--sand-lt);
-    }
-    .galeria-bottom img {
-      flex: 1; min-width: 0; height: 190px;
-      object-fit: cover; display: block;
-      transition: transform 0.4s ease;
-    }
-    .galeria-bottom img:hover { transform: scale(1.02); }
+    .alojamiento-galeria img:hover { transform: scale(1.02); }
 
     @media (max-width: 700px) {
-      .entorno-fotos { grid-template-rows: 210px 130px; }
+      .entorno-fotos { gap: 0.5rem; }
+      .alojamiento-galeria { grid-template-columns: 1fr; }
+      .alojamiento-galeria img { height: auto; }
     }
 
     /* ── PROGRAMA ─────────────────────────────────────────── */
@@ -419,7 +413,7 @@
       <h2 class="sec-title" style="margin-bottom:2rem;">Los organizadores</h2>
       <div class="org-cards">
         <div class="org-card">
-          <div class="org-avatar">M</div>
+          <div class="org-avatar"><img src="margarita.jpeg" alt="Margarita Margenat"></div>
           <h3 class="org-name">Margarita Margenat</h3>
           <p class="org-role">Psicóloga</p>
           <p class="org-desc">Guiará los espacios de introspección y el compartir grupal, creando un entorno de apertura y confianza genuinas.</p>
@@ -431,7 +425,7 @@
           </a>
         </div>
         <div class="org-card">
-          <div class="org-avatar">I</div>
+          <div class="org-avatar"><img src="ivan.jpeg" alt="Guías Ibonte"></div>
           <h3 class="org-name">Guías Ibonte</h3>
           <p class="org-role">Guías de montaña</p>
           <p class="org-desc">Guiarán los trekking por el Parque Natural del Cap de Creus con el conocimiento y la seguridad de un guía profesional.</p>
@@ -457,11 +451,9 @@
       <p>Una casa acogedora en el corazón de Cadaqués para alojarnos durante el fin de semana. Comedor compartido, terraza con vistas y habitaciones íntimas para un grupo reducido.</p>
     </div>
     <div class="alojamiento-galeria">
-      <img src="costa.jpeg" alt="Vistas desde Can Duran" class="galeria-top">
-      <div class="galeria-bottom">
-        <img src="menjador.jpeg" alt="Comedor de Can Duran">
-        <img src="terrassa.jpeg" alt="Terraza de Can Duran">
-      </div>
+      <img src="menjador.jpeg" alt="Comedor de Can Duran">
+      <img src="terrassa.jpeg" alt="Terraza de Can Duran">
+      <img src="interior.jpeg" alt="Interior de Can Duran">
     </div>
   </div>
 </section>
